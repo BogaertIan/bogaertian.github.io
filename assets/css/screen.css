@@ -1,0 +1,84 @@
+body {
+    font-size: 16px;
+    font-family: Arial Helvetica sans-serif;
+    /*background-color: ;
+    color: ;*/
+    text-align: center;
+}
+
+#startScreen h1 {
+    font-size: 5rem;
+    width: fit-content;
+    margin: 35% auto 0 auto;
+}
+#startScreen button {
+    width: 65%;
+    font-size: 3rem;
+    margin: 25% auto;
+    padding: 20px;
+}
+h2 {
+    font-size: 2.5rem;
+    width: fit-content;
+    margin: 10% auto 0 auto;
+}
+#difficulty{
+    margin: 1rem;
+}
+.difficulty, .category, .answer {
+    border: 1px solid #FF9100;
+    width: 90%;
+    height: 11vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    font-size: 2rem;
+    border-radius: 20px;
+}
+.answer {
+    height: 10vh;
+    font-size: 2rem;
+}
+.category {
+    width: 40%;
+    display: inline-block;
+}
+button {
+    margin: 10% auto;
+}
+.btn {
+    display: block;
+}
+.home, .continue{
+    border: none;
+}
+#categoryNames button {
+    display: inline-block;
+    font-size: 1.8rem;
+    margin: 5%;
+}
+
+.glyphicon {
+    font-size: 3rem;
+}
+#question {
+    font-size: 2rem;
+    width: 90%;
+    margin: 0 auto;
+}
+.succes img, .failure img {
+    width: auto;
+    height: 25vh;
+    margin-top: 40%;
+}
+.failure p, .succes p {
+    font-size: 2rem;
+    margin-top: 10%;
+}
+.continue span{
+    font-size: 5rem;
+}
+#endscreen div {
+    margin-top: 50%;
+    font-size: 2rem;
+}

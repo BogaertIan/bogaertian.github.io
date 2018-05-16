@@ -1,1 +1,71 @@
-"Hello world"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Ian Bogaert"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/screen.css"/>
+    <link rel="manifest" href="manifest.json">
+    <title>Quizian</title>
+</head>
+<body>
+<div id="startScreen">
+    <h1>Quiz</h1>
+    <button class="btn btn-lg" id="start">START</button>
+</div>
+<div id="difficulty" class="hidden">
+    <button type="button" class="btn btn-default btn-sm home">
+        <span class="glyphicon glyphicon-home"></span>
+    </button>
+    <h2>Choose difficulty</h2>
+
+    <button id="easy" class="btn btn-sm difficulty">EASY</button>
+    <button id="medium" class="btn btn-sm difficulty">MEDIUM</button>
+    <button id="hard" class="btn btn-sm difficulty">HARD</button>
+
+</div>
+<div id="category" class="hidden">
+    <button type="button" class="btn btn-default btn-sm home">
+        <span class="glyphicon glyphicon-home"></span>
+    </button>
+    <h2>Choose category</h2>
+
+    <div id="categoryNames"></div>
+</div>
+<div id="quiz" class="hidden">
+    <button type="button" class="btn btn-default btn-sm home">
+        <span class="glyphicon glyphicon-home"></span>
+    </button>
+    <p id="question"><strong>Question: </strong><span></span></p>
+    <div id="answers">
+
+    </div>
+
+    <div id="timer"></div>
+</div>
+<div class="failure hidden">
+    <img class="info-image" id="wrong-image" src="assets/images/wrong.png">
+    <p>The correct answer was: <span id="correct"></span></p>
+    <button type="button" class="btn btn-default btn-sm continue">
+        <span class="glyphicon glyphicon-circle-arrow-right"></span>
+    </button>
+</div>
+<div class="succes hidden">
+    <img class="info-image" id="correct-image" src="assets/images/correct.png">
+    <p>You're answer was correct!</p>
+    <button type="button" class="btn btn-default btn-sm continue">
+        <span class="glyphicon glyphicon-circle-arrow-right"></span>
+    </button>
+</div>
+<div id="endscreen" class="hidden">
+    <button type="button" class="btn btn-default btn-sm home">
+        <span class="glyphicon glyphicon-home"></span>
+    </button>
+    <div>You scored <span id="score"></span></div>
+</div>
+<script src="assets/js/jquery-3.1.1.min.js"></script>
+<script src="assets/js/script.js"></script>
+</body>
+</html>
