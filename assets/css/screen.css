@@ -1,6 +1,6 @@
 body {
     font-size: 16px;
-    font-family: Arial Helvetica sans-serif;
+    font-family: Tahoma,"Segoe UI",  sans-serif;
     /*background-color: ;
     color: ;*/
     text-align: center;
@@ -81,4 +81,8 @@ button {
 #endscreen div {
     margin-top: 50%;
     font-size: 2rem;
+}
+#answers button {
+    background-color: rgb(98,167,82);
+    color: #FFF;
 }
