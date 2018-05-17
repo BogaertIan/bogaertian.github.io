@@ -1,8 +1,8 @@
 body {
     font-size: 16px;
     font-family: Tahoma,"Segoe UI",  sans-serif;
-    /*background-color: ;
-    color: ;*/
+    /*background-color: ;*/
+    color: rgb(98,167,82);
     text-align: center;
 }
 
@@ -60,6 +60,7 @@ button {
 
 .glyphicon {
     font-size: 3rem;
+    color: rgb(98,167,82);
 }
 #question {
     font-size: 2rem;
@@ -82,7 +83,7 @@ button {
     margin-top: 50%;
     font-size: 2rem;
 }
-#answers button {
+button {
     background-color: rgb(98,167,82);
     color: #FFF;
 }

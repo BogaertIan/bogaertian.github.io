@@ -68,7 +68,7 @@ var loadQuestion = function (givenQuestion) {
     shuffleArray(allAnswers);
     $("#answers").empty();
     allAnswers.forEach(function (value) {
-        $("#answers").append('<button type="button" class="btn btn-default answer"><span>'+decode(value)+'</span></button>')
+        $("#answers").append('<button type="button" class="btn btn-default answer"  style="color:white;background-color:rgb(98,167,82)"><span>'+decode(value)+'</span></button>')
     });
 };
 function shuffleArray(array) {
@@ -131,8 +131,7 @@ var showCategories = function (e) {
         if(difficulty === 'hard' && (categories[cat] === 21||categories[cat]===26)) {
             console.log('No hard questions for this category');
         }else {
-            $("#categoryNames").append("<button class='btn btn-default category' id='"+categories[cat]+"'>"+cat+"</button>");
-
+            $("#categoryNames").append("<button class='btn btn-default category' id='"+categories[cat]+"' style='color:white;background-color:rgb(98,167,82)'>"+cat+"</button>");
         }
     }
 };
@@ -156,12 +155,12 @@ var verifyAnswer = function (answer) {
     $('#quiz').addClass('hidden');
     var correctAnswer = questions[difficulty][category][currentQuestionIndex].correct_answer;
     console.log(correctAnswer);
-    if(answer === correctAnswer){
+    if(decode(answer) === decode(correctAnswer)){
         $('.succes').removeClass('hidden');
         score++;
     } else {
         $('.failure').removeClass('hidden');
-        $('#correct').text(correctAnswer);
+        $('#correct').text(decode(correctAnswer));
     }
 };
 var nextQuestion = function (e) {
@@ -184,7 +183,7 @@ var handleScore = function () {
 
 };
 var reload = function (e) {
-    location.reload();
+    window.location.reload(true);
 };
 
 
