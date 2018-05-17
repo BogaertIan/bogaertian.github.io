@@ -26,7 +26,7 @@ if('serviceWorker' in navigator){
 
 }
 var get = function (difficulty,category) {
-    var url = "https://opentdb.com/api.php?amount=10&category="+category+"&difficulty="+difficulty+"&type=multiple"
+    var url = "https://opentdb.com/api.php?amount=30&category="+category+"&difficulty="+difficulty+"&type=multiple";
     return new Promise(function (resolve,reject) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
@@ -54,32 +54,6 @@ var getQuestions = function (difficulty, category) {
         .catch(function (err) {
             console.log("Error ", err);
         });
-    /*$.ajax({
-        url: url,
-        dataType: "JSON",
-        type: "POST",
-        success: function (data) {
-            questions[difficulty][category] = data.results;
-            /!*
-            localforage.setItem(KEY_QUESTIONS, JSON.stringify(questions)).then(function () {
-                console.log("cached " + questions.length + " questions");
-            });*!/
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            if (typeof console != "undefined") {
-                console.log(jqXHR.responseText);
-                console.log(textStatus, errorThrown);
-            }
-
-           /!* localforage.getItem(KEY_QUESTIONS).then(function (q) {
-                questions = JSON.parse(q);
-                $('#category').addClass('hidden');
-                $('#quiz').removeClass('hidden');
-                console.log(questions);
-                loadQuestion(questions[currentQuestionIndex]);
-            })*!/
-        }
-    }); *!/*/
 };
 
 var loadQuestion = function (givenQuestion) {
@@ -116,6 +90,24 @@ function shuffleArray(array) {
 
     return array;
 }
+function shuffleObject(sourceArray) {
+    console.log(Object.values(sourceArray));
+    sourceArray = Object.values(sourceArray);
+    var shuffledArray = [];
+    var rand = getRandomInt(0, sourceArray.length - 1);
+    var count = 0;
+    while (Object.keys(sourceArray).length > 0) {
+        if (sourceArray[rand] !== undefined) {
+            shuffledArray.push(sourceArray[rand]);
+            sourceArray.splice(rand, 1);
+        }
+        rand = getRandomInt(0, sourceArray.length);
+    }
+    return shuffledArray;
+}
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 function decode(encodedStr){
     var parser = new DOMParser;
     var dom = parser.parseFromString(
@@ -137,7 +129,7 @@ var showCategories = function (e) {
 
     for(var cat in categories){
         if(difficulty === 'hard' && (categories[cat] === 21||categories[cat]===26)) {
-            console.log('oops');
+            console.log('No hard questions for this category');
         }else {
             $("#categoryNames").append("<button class='btn btn-default category' id='"+categories[cat]+"'>"+cat+"</button>");
 
@@ -149,6 +141,9 @@ var startGame = function (e) {
     category = $(this).prop('id');
     console.log(category);
     $('#category').addClass('hidden');
+    console.log(questions[difficulty][category]);
+    questions[difficulty][category] = shuffleObject(questions[difficulty][category]);
+    console.log(questions[difficulty][category]);
     $('#quiz').removeClass('hidden');
     loadQuestion(questions[difficulty][category][currentQuestionIndex]);
 };
@@ -201,7 +196,6 @@ $(document).ready(function () {
         }
     });
     console.log(questions);
-
     $('#start').on('click',showDifficulty);
     $('.difficulty').on('click',showCategories);
     $('#category').on('click','button',startGame);
