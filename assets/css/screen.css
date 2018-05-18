@@ -22,7 +22,7 @@ body {
 h2 {
     font-size: 2.5rem;
     width: fit-content;
-    margin: 10% auto 0 auto;
+    margin: 5% auto 0 auto;
 }
 #difficulty{
     margin: 1rem;
@@ -56,7 +56,7 @@ button {
 }
 #categoryNames button {
     display: inline-block;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin: 5%;
 }
 
@@ -89,6 +89,7 @@ button {
     background-color: rgb(98,167,82);
     color: #FFF;
 }
+
 .score {
     color: #FFF;
     width: 85%;

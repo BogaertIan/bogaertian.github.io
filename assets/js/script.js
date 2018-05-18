@@ -132,7 +132,10 @@ var showCategories = function (e) {
     for(var cat in categories){
         if(difficulty === 'hard' && (categories[cat] === 21||categories[cat]===26)) {
             console.log('No hard questions for this category');
-        }else {
+        } else if(difficulty === 'medium' && categories[cat] === 26){
+            console.log('No medium questions for this category');
+        }
+        else {
             $("#categoryNames").append("<button class='btn btn-default category' id='"+categories[cat]+"' style='color:white;background-color:rgb(98,167,82)'>"+cat+"</button>");
         }
     }

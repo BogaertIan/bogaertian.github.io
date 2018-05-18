@@ -7,7 +7,8 @@ var cacheFiles = [
     'assets/images/wrong.png',
     'assets/css/bootstrap.min.css',
     'assets/css/reset.css',
-    'assets/css/screen.css'
+    'assets/css/screen.css',
+    'assets/fonts/glyphicons-halflings-regular.woff2'
 ];
 self.addEventListener('install',function (e) {
     console.log("[ServiceWorker] Installed");
