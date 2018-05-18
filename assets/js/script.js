@@ -11,9 +11,11 @@ var questions = {
 
     }
 };
-var currentQuestionIndex=0;
+var numberOfQuestions =5;
+var currentQuestionIndex=1;
 var score = 0;
 var KEY_QUESTIONS = "questions";
+var scores = [];
 if('serviceWorker' in navigator){
     navigator.serviceWorker
         .register('././service-worker.js', {scope: '././'})
@@ -167,7 +169,7 @@ var nextQuestion = function (e) {
     e.preventDefault();
     $('.failure').addClass('hidden');
     $('.succes').addClass('hidden');
-    if(currentQuestionIndex === questions[difficulty][category].length-1 ){
+    if(currentQuestionIndex === numberOfQuestions ){
         handleScore();
     } else {
         $('#quiz').removeClass('hidden');
@@ -179,15 +181,36 @@ var nextQuestion = function (e) {
 var handleScore = function () {
     $('#endscreen').removeClass('hidden');
     // TO DO: show end message
-    $('#score').text(score+"/"+questions[difficulty][category].length);
-
+    $('#score').text(score+"/"+numberOfQuestions);
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    var thisScore ={score:score,date:dd+"/"+mm+"/"+yyyy,difficulty:difficulty,category:category};
+    scores.push(thisScore);
+    saveScore(thisScore);
 };
 var reload = function (e) {
     window.location.reload(true);
 };
 
-
-
+var showHistory = function () {
+    console.log(scores);
+    for(var i=0;i<scores.length;i++){
+        var scoreObject = scores[i];
+        var catname = getCategoryNameById(scoreObject.category);
+        $("#scores").append("<div class='score'><p>Score: "+scoreObject.score+"</p><p>Difficulty: "+scoreObject.difficulty+"</p><p>Category: "+ catname +"</p><p>Date: "+scoreObject.date+"</p></div>")
+    }
+    $('#startScreen').addClass('hidden');
+    $("#scoreScreen").removeClass('hidden');
+};
+var getCategoryNameById = function (id) {
+    for (var catName in categories){
+        if(categories[catName]==id){
+            return catName;
+        }
+    }
+};
 $(document).ready(function () {
     difficulties.forEach(function (diff) {
         for (var cat in categories) {
@@ -201,5 +224,61 @@ $(document).ready(function () {
     $('#answers').on('click','button',verifyQuestion);
     $('.continue').on('click',nextQuestion);
     $('.home').on('click',reload);
+    $('#history').on('click',showHistory);
+    console.log(scores);
 });
+window.indexedDB =
+    window.indexedDB ||
+    window.mozIndexedDB ||
+    window.webkitIndexedDB ||
+    window.msIndexedDB;
+if(!window.indexedDB){
+    console.log("oops, not supported");
+}
+var request = window.indexedDB.open("historyDB",1);
+var db = null;
+request.onerror = function (ev) {
+    alert("Something went wrong!")
+};
+request.onupgradeneeded = function (ev) {
+    db =ev.target.result;
+    var os = db.createObjectStore("scores", {keyPath:"id", autoIncrement: true});
+    alert("database created");
+};
+request.onsuccess = function (ev) {
+    db = ev.target.result;
+    scores = typeof retrieveScores() === 'undefined' ? [] : retrieveScores();
+};
+var saveScore = function (score) {
+    var trans = db.transaction("scores","readwrite");
+    var os = trans.objectStore("scores");
+    os.add(score);
+};
+var retrieveScores = function(){
+    var trans = db.transaction("scores");
+    var os = trans.objectStore("scores");
+    var cursor = os.openCursor();
+    scores=[];
+    cursor.onsuccess = function (ev) {
+        var c =ev.target.result;
+        if(c){
+            var value = c.value;
+            scores.push(value);
+            c.continue();
+        } else {
+        // Finished
+        }
+    }
+    // var request = os.getAll();
+    // console.log(request);
+    // while(request.readyState!=="done"){
+    //     //wait
+    // }
+    // return request;
 
+    /*os.getAll.onsuccess = function (ev) {
+        var scores = ev.target.result;
+        console.log(ev.target);
+        return scores;
+    }*/
+};

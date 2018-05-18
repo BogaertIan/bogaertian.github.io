@@ -1,11 +1,13 @@
 var cacheName = 'my-site-cache-v1';
 var cacheFiles = [
     'index.html',
+    'assets/js/jquery-3.1.1.min.js',
     'assets/js/script.js',
     'assets/images/correct.png',
     'assets/images/wrong.png',
-    'assets/css/screen.css',
-    'assets/css/reset.css'
+    'assets/css/bootstrap.min.css',
+    'assets/css/reset.css',
+    'assets/css/screen.css'
 ];
 self.addEventListener('install',function (e) {
     console.log("[ServiceWorker] Installed");

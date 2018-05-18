@@ -5,16 +5,18 @@ body {
     color: rgb(98,167,82);
     text-align: center;
 }
-
+.hidden {
+    display: none;
+}
 #startScreen h1 {
     font-size: 5rem;
     width: fit-content;
-    margin: 35% auto 0 auto;
+    margin: 25% auto 0 auto;
 }
 #startScreen button {
     width: 65%;
-    font-size: 3rem;
-    margin: 25% auto;
+    font-size: 2rem;
+    margin: 10% auto;
     padding: 20px;
 }
 h2 {
@@ -58,7 +60,7 @@ button {
     margin: 5%;
 }
 
-.glyphicon {
+.home span {
     font-size: 3rem;
     color: rgb(98,167,82);
 }
@@ -86,4 +88,12 @@ button {
 button {
     background-color: rgb(98,167,82);
     color: #FFF;
+}
+.score {
+    color: #FFF;
+    width: 85%;
+    background-color: rgb(98,167,82);
+    margin: 5% auto;
+    padding: 3%;
+    border-radius: 20px;
 }
