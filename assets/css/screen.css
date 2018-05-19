@@ -5,6 +5,7 @@ body {
     color: rgb(98,167,82);
     text-align: center;
 }
+
 .hidden {
     display: none;
 }
@@ -56,7 +57,7 @@ button {
 }
 #categoryNames button {
     display: inline-block;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     margin: 5%;
 }
 

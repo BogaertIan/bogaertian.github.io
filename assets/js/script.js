@@ -1,4 +1,4 @@
-var categories = {"General":9,"Music":12,"Science":17,"Sports":21,"Geography":22,"History":23,"Celebrities":26,"Film":11};
+var categories = {"General":9,"Music":12,"Science":17,"Sports":21,"Geography":22,"History":23,"Videogames":15,"Film":11};
 var difficulties = ['easy','medium','hard'];
 var difficulty = easy;
 var category;
@@ -28,7 +28,7 @@ if('serviceWorker' in navigator){
 
 }
 var get = function (difficulty,category) {
-    var url = "https://opentdb.com/api.php?amount=30&category="+category+"&difficulty="+difficulty+"&type=multiple";
+    var url = "https://opentdb.com/api.php?amount=20&category="+category+"&difficulty="+difficulty+"&type=multiple";
     return new Promise(function (resolve,reject) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
@@ -130,10 +130,8 @@ var showCategories = function (e) {
     difficulty = $(this).prop('id');
 
     for(var cat in categories){
-        if(difficulty === 'hard' && (categories[cat] === 21||categories[cat]===26)) {
+        if(difficulty === 'hard' && (categories[cat] === 21 || categories[cat] === 10)) {
             console.log('No hard questions for this category');
-        } else if(difficulty === 'medium' && categories[cat] === 26){
-            console.log('No medium questions for this category');
         }
         else {
             $("#categoryNames").append("<button class='btn btn-default category' id='"+categories[cat]+"' style='color:white;background-color:rgb(98,167,82)'>"+cat+"</button>");
@@ -199,12 +197,13 @@ var reload = function (e) {
 
 var showHistory = function () {
     console.log(scores);
-    for(var i=0;i<scores.length;i++){
+    for(var i=scores.length-1;i>=0;i--){
         var scoreObject = scores[i];
         var catname = getCategoryNameById(scoreObject.category);
         $("#scores").append("<div class='score'><p>Score: "+scoreObject.score+"</p><p>Difficulty: "+scoreObject.difficulty+"</p><p>Category: "+ catname +"</p><p>Date: "+scoreObject.date+"</p></div>")
     }
     $('#startScreen').addClass('hidden');
+    $('#endscreen').addClass('hidden');
     $("#scoreScreen").removeClass('hidden');
 };
 var getCategoryNameById = function (id) {
@@ -227,7 +226,7 @@ $(document).ready(function () {
     $('#answers').on('click','button',verifyQuestion);
     $('.continue').on('click',nextQuestion);
     $('.home').on('click',reload);
-    $('#history').on('click',showHistory);
+    $('.history').on('click',showHistory);
     console.log(scores);
 });
 window.indexedDB =
