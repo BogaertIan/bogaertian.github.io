@@ -6,9 +6,6 @@ body {
     text-align: center;
 }
 
-.hidden {
-    display: none;
-}
 #startScreen h1 {
     font-size: 5rem;
     width: fit-content;
@@ -82,8 +79,8 @@ button {
 .continue span{
     font-size: 5rem;
 }
-#endscreen div {
-    margin-top: 50%;
+#endScreen div {
+    margin-top: 40%;
     font-size: 2rem;
 }
 button {
