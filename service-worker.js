@@ -34,7 +34,7 @@ self.addEventListener('activate',function (e) {
     }))
 });
 self.addEventListener('fetch',function (e) {
-    console.log("[ServiceWorker] Fetching", e.request.url);
+    console.log("[ServiceWorker] Fetching");
     e.respondWith(
         caches.match(e.request)
             .then(function(response) {

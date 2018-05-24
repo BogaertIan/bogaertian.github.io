@@ -1,6 +1,6 @@
 var categories = {"General":9,"Music":12,"Science":17,"Sports":21,"Geography":22,"History":23,"Videogames":15,"Film":11};
 var difficulties = ['easy','medium','hard'];
-var difficulty = easy;
+var difficulty;
 var category;
 var questions = {
     easy:{
@@ -14,7 +14,6 @@ var questions = {
 var numberOfQuestions =5;
 var currentQuestionIndex=1;
 var score = 0;
-var KEY_QUESTIONS = "questions";
 var scores = [];
 if('serviceWorker' in navigator){
     navigator.serviceWorker
@@ -29,23 +28,12 @@ if('serviceWorker' in navigator){
 }
 var get = function (difficulty,category) {
     var url = "https://opentdb.com/api.php?amount=20&category="+category+"&difficulty="+difficulty+"&type=multiple";
-    return new Promise(function (resolve,reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE){
-                if (xhr.status === 200){
-                    var result = xhr.responseText;
-                    result = JSON.parse(result);
-                    resolve(result);
-                } else {
-                    reject(xhr);
-                }
-            }
-        };
-        xhr.open("GET",url,true);
-        xhr.send();
-    });
-
+    fetch(url)
+        .then(function(response) {
+            response.json().then(function(responseJson) {
+                return responseJson;
+            });
+        });
 };
 
 var getQuestions = function (difficulty, category) {
@@ -93,7 +81,6 @@ function shuffleArray(array) {
     return array;
 }
 function shuffleObject(sourceArray) {
-    console.log(Object.values(sourceArray));
     sourceArray = Object.values(sourceArray);
     var shuffledArray = [];
     var rand = getRandomInt(0, sourceArray.length - 1);
@@ -141,7 +128,6 @@ var showCategories = function (e) {
 var startGame = function (e) {
     e.preventDefault();
     category = $(this).prop('id');
-    console.log(category);
     $('#category').addClass('hidden');
     questions[difficulty][category] = shuffleObject(questions[difficulty][category]);
     $('#quiz').removeClass('hidden');
@@ -155,7 +141,6 @@ var verifyQuestion = function (e) {
 var verifyAnswer = function (answer) {
     $('#quiz').addClass('hidden');
     var correctAnswer = questions[difficulty][category][currentQuestionIndex].correct_answer;
-    console.log(correctAnswer);
     if(decode(answer) === decode(correctAnswer)){
         $('.succes').removeClass('hidden');
         score++;
@@ -194,7 +179,6 @@ var reload = function (e) {
 };
 
 var showHistory = function () {
-    console.log(scores);
     for(var i=scores.length>10?9:scores.length-1;i>=0;i--){
         var scoreObject = scores[i];
         var catname = getCategoryNameById(scoreObject.category);
