@@ -34,13 +34,13 @@ self.addEventListener('activate',function (e) {
     }))
 });
 self.addEventListener('fetch',function (e) {
-    //console.log("[ServiceWorker] Fetching", e.request.url);
+    console.log("[ServiceWorker] Fetching", e.request.url);
     e.respondWith(
         caches.match(e.request)
             .then(function(response) {
                     // Cache hit - return response
                     if (response) {
-                        console.log("[SercieWorker] Found in cache");
+                        console.log("[ServiceWorker] Found in cache");
                         return response;
                     }
                     var requestClone = e.request.clone();

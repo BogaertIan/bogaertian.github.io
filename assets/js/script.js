@@ -143,9 +143,7 @@ var startGame = function (e) {
     category = $(this).prop('id');
     console.log(category);
     $('#category').addClass('hidden');
-    console.log(questions[difficulty][category]);
     questions[difficulty][category] = shuffleObject(questions[difficulty][category]);
-    console.log(questions[difficulty][category]);
     $('#quiz').removeClass('hidden');
     loadQuestion(questions[difficulty][category][currentQuestionIndex]);
 };
@@ -180,7 +178,7 @@ var nextQuestion = function (e) {
 
 };
 var handleScore = function () {
-    $('#endscreen').removeClass('hidden');
+    $('#endScreen').removeClass('hidden');
     // TO DO: show end message
     $('#score').text(score+"/"+numberOfQuestions);
     var today = new Date();
@@ -197,13 +195,13 @@ var reload = function (e) {
 
 var showHistory = function () {
     console.log(scores);
-    for(var i=scores.length-1;i>=0;i--){
+    for(var i=scores.length>10?9:scores.length-1;i>=0;i--){
         var scoreObject = scores[i];
         var catname = getCategoryNameById(scoreObject.category);
         $("#scores").append("<div class='score'><p>Score: "+scoreObject.score+"</p><p>Difficulty: "+scoreObject.difficulty+"</p><p>Category: "+ catname +"</p><p>Date: "+scoreObject.date+"</p></div>")
     }
     $('#startScreen').addClass('hidden');
-    $('#endscreen').addClass('hidden');
+    $('#endScreen').addClass('hidden');
     $("#scoreScreen").removeClass('hidden');
 };
 var getCategoryNameById = function (id) {
