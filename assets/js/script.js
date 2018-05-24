@@ -28,12 +28,24 @@ if('serviceWorker' in navigator){
 }
 var get = function (difficulty,category) {
     var url = "https://opentdb.com/api.php?amount=20&category="+category+"&difficulty="+difficulty+"&type=multiple";
-    fetch(url)
-        .then(function(response) {
-            response.json().then(function(responseJson) {
-                return responseJson;
-            });
-        });
+
+    return new Promise(function (resolve,reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE){
+                if (xhr.status === 200){
+                    var result = xhr.responseText;
+                    result = JSON.parse(result);
+                    resolve(result);
+                } else {
+                    reject(xhr);
+                }
+            }
+        };
+        xhr.open("GET",url,true);
+        xhr.send();
+    });
+
 };
 
 var getQuestions = function (difficulty, category) {
