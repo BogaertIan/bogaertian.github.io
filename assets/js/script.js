@@ -213,22 +213,16 @@ var getCategoryNameById = function (id) {
         }
     }
 };
-$(document).ready(function () {
-    difficulties.forEach(function (diff) {
-        for (var cat in categories) {
-            getQuestions(diff,categories[cat]);
-        }
-    });
-    console.log(questions);
-    $('#start').on('click',showDifficulty);
-    $('.difficulty').on('click',showCategories);
-    $('#category').on('click','button',startGame);
-    $('#answers').on('click','button',verifyQuestion);
-    $('.continue').on('click',nextQuestion);
-    $('.home').on('click',reload);
-    $('.history').on('click',showHistory);
-    console.log(scores);
-});
+var showContact = function () {
+    $('#startScreen').addClass('hidden');
+    $('#contactScreen').removeClass('hidden');
+};
+var submitForm = function (e) {
+    var ajv = new Ajv();
+    var valid = ajv.validate(schema)
+};
+
+//indexedDB
 window.indexedDB =
     window.indexedDB ||
     window.mozIndexedDB ||
@@ -271,16 +265,76 @@ var retrieveScores = function(){
         // Finished
         }
     }
-    // var request = os.getAll();
-    // console.log(request);
-    // while(request.readyState!=="done"){
-    //     //wait
-    // }
-    // return request;
-
-    /*os.getAll.onsuccess = function (ev) {
-        var scores = ev.target.result;
-        console.log(ev.target);
-        return scores;
-    }*/
 };
+
+//FORM & JSON SCHEMA
+var jsonSchema = {
+    name: {
+        "title": "Name validation",
+        "type": "string",
+        "minLength":1,
+        "pattern": "^[A-Za-z\\s]*$"
+    },
+    email:{
+        "title": "Email validation",
+        "type": "string",
+        "pattern": "[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}",
+        "format": "email"
+    }
+};
+
+
+
+function handleForm(e){
+    e.preventDefault();
+    var needValidation = [$('#fullName'), $('#email')];
+    for(var i = 0; i<needValidation.length;i++){
+        if(i == 0) validateField(nameJsonSchema, needValidation[i]);
+        else if(i == 1)validateField(emailJsonSchema, needValidation[i]);
+        else if(i == 2)validateField(phoneJsonSchema, needValidation[i]);
+    }
+
+    if(formErrors != 0){
+        //TO-DO : show errors
+        var errorMessages = "<ul class='bulletPoints'>";
+        formErrorMessages.forEach(function(item, index){
+            errorMessages += "<li>" + item + "</li>";
+        });
+        errorMessages += "</ul>";
+        $('#errorMessages').append(errorMessages);
+    } else{
+        $('#errorMessages').empty();
+        $('#inputClient').toggleClass('hide');
+        $('#options').toggleClass('hide');
+    }
+    formErrorMessages = [];
+    formErrors = 0;
+}
+
+function validateField(schema, field){
+    var ajv = new Ajv();
+    var valid = ajv.validate(schema, $(field).val());
+    if(!valid){
+        console.log(ajv.errors);
+        var labelText = $(field).parent().find("label").text();
+        formErrorMessages.push(labelText + " is not valid.");
+        formErrors++;
+    }
+}
+
+$(document).ready(function () {
+    difficulties.forEach(function (diff) {
+        for (var cat in categories) {
+            getQuestions(diff,categories[cat]);
+        }
+    });
+    $('#start').on('click',showDifficulty);
+    $('.difficulty').on('click',showCategories);
+    $('#category').on('click','button',startGame);
+    $('#answers').on('click','button',verifyQuestion);
+    $('.continue').on('click',nextQuestion);
+    $('.home').on('click',reload);
+    $('.history').on('click',showHistory);
+    $('#contact').on('click',showContact);
+    $('#contactForm').on('click',submitForm);
+});

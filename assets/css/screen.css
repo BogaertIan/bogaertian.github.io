@@ -1,7 +1,7 @@
 body {
     font-size: 16px;
     font-family: Tahoma,"Segoe UI",  sans-serif;
-    /*background-color: ;*/
+    background-color: white;
     color: rgb(98,167,82);
     text-align: center;
 }
@@ -98,4 +98,22 @@ button {
     margin: 5% auto;
     padding: 3%;
     border-radius: 20px;
+}
+form {
+    width: 85%;
+    margin: 5% auto;
+}
+input, label{
+    display: block;
+    text-align: left;
+    margin: 3% 0;
+}
+input, textarea {
+    border: 1px solid rgb(98,167,82);
+    width: 100%;
+}
+input[type="submit"]{
+    width: auto;
+    color: white;
+    background-color: rgb(98,167,82);
 }

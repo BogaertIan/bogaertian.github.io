@@ -62,7 +62,7 @@
         <span class="glyphicon glyphicon-circle-arrow-right"></span>
     </button>
 </div>
-<div id="endscreen" class="hidden">
+<div id="endScreen" class="hidden">
     <button type="button" class="btn btn-default btn-sm home">
         <span class="glyphicon glyphicon-home"></span>
     </button>
@@ -75,6 +75,21 @@
     </button>
     <h2>History</h2>
     <div id="scores">    </div>
+</div>
+<div id="contactScreen" class="hidden">
+    <button type="button" class="btn btn-default btn-sm home">
+        <span class="glyphicon glyphicon-home"></span>
+    </button>
+    <h2>Contact</h2>
+    <form id="contactForm" action="#" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <label for="name">E-mail:</label>
+        <input type="email" id="email" name="email">
+        <label for="formQuestion">Question:</label>
+        <textarea id="formQuestion" name="question" rows="10"></textarea>
+        <input type="submit" value="Verzenden" class="btn btn-lg"/>
+    </form>
 </div>
 <script src="assets/js/jquery-3.1.1.min.js"></script>
 <script src="assets/js/script.js"></script>
