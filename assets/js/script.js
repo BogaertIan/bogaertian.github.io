@@ -137,6 +137,7 @@ var showCategories = function (e) {
         }
     }
 };
+
 var startGame = function (e) {
     e.preventDefault();
     category = $(this).prop('id');
@@ -211,10 +212,7 @@ var showContact = function () {
     $('#startScreen').addClass('hidden');
     $('#contactScreen').removeClass('hidden');
 };
-var submitForm = function (e) {
-    var ajv = new Ajv();
-    var valid = ajv.validate(schema)
-};
+
 
 //indexedDB
 window.indexedDB =
@@ -264,44 +262,47 @@ var retrieveScores = function(){
 //FORM & JSON SCHEMA
 var jsonSchema = {
     name: {
-        "title": "Name validation",
-        "type": "string",
-        "minLength":1,
-        "pattern": "^[A-Za-z\\s]*$"
+        title: "Name validation",
+        type: "string",
+        minLength: 1,
+        pattern: "^[A-Za-z\\s]*$"
     },
     email:{
-        "title": "Email validation",
-        "type": "string",
-        "pattern": "[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}",
-        "format": "email"
+        title: "Email validation",
+        type: "string",
+        pattern: "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$",
+        format: "email"
+    },
+    question:{
+        title: "Question validation",
+        minLength: 1
     }
 };
 
+var formErrors = 0;
+var errorMessages=[];
 
-
-function handleForm(e){
+function submitForm(e){
+    $('#errorMsg').html("");
     e.preventDefault();
-    var needValidation = [$('#fullName'), $('#email')];
-    for(var i = 0; i<needValidation.length;i++){
-        if(i == 0) validateField(nameJsonSchema, needValidation[i]);
-        else if(i == 1)validateField(emailJsonSchema, needValidation[i]);
-        else if(i == 2)validateField(phoneJsonSchema, needValidation[i]);
-    }
-
-    if(formErrors != 0){
+    validateField(jsonSchema.name, $('#name'));
+    validateField(jsonSchema.email, $('#email'));
+    validateField(jsonSchema.question, $('#formQuestion'));
+    console.log(errorMessages);
+    if(formErrors > 0){
         //TO-DO : show errors
-        var errorMessages = "<ul class='bulletPoints'>";
-        formErrorMessages.forEach(function(item, index){
-            errorMessages += "<li>" + item + "</li>";
+        var errorMessage = "<ul>";
+        errorMessages.forEach(function(item, index){
+            errorMessage += "<li>" + item + "</li>";
         });
-        errorMessages += "</ul>";
-        $('#errorMessages').append(errorMessages);
+        errorMessage += "</ul>";
+        $('#errorMsg').append(errorMessage);
     } else{
-        $('#errorMessages').empty();
-        $('#inputClient').toggleClass('hide');
-        $('#options').toggleClass('hide');
+        $('#errorMsg').empty();
+        $('#contactScreen').addClass('hidden');
+        $('#startScreen').removeClass('hidden');
     }
-    formErrorMessages = [];
+    errorMessages = [];
     formErrors = 0;
 }
 
@@ -310,8 +311,8 @@ function validateField(schema, field){
     var valid = ajv.validate(schema, $(field).val());
     if(!valid){
         console.log(ajv.errors);
-        var labelText = $(field).parent().find("label").text();
-        formErrorMessages.push(labelText + " is not valid.");
+        var labelText = $(field).prev().text();// .parent().find("label").text();
+        errorMessages.push(labelText + " is not valid.");
         formErrors++;
     }
 }
@@ -330,5 +331,5 @@ $(document).ready(function () {
     $('.home').on('click',reload);
     $('.history').on('click',showHistory);
     $('#contact').on('click',showContact);
-    $('#contactForm').on('click',submitForm);
+    $('#contactForm').on('submit',submitForm);
 });
