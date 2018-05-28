@@ -219,7 +219,7 @@ request.onerror = function (ev) {
 request.onupgradeneeded = function (ev) {
     db =ev.target.result;
     var os = db.createObjectStore("scores", {keyPath:"id", autoIncrement: true});
-    alert("database created");
+    //alert("database created");
 };
 request.onsuccess = function (ev) {
     db = ev.target.result;
