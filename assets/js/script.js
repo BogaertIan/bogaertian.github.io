@@ -4,14 +4,11 @@ var difficulty;
 var category;
 var questions = {
     easy:{
-
     }, medium: {
-
     }, hard: {
-
     }
 };
-var numberOfQuestions =5;
+var numberOfQuestions = 10;
 var currentQuestionIndex=1;
 var score = 0;
 var scores = [];
@@ -45,7 +42,6 @@ var get = function (difficulty,category) {
         xhr.open("GET",url,true);
         xhr.send();
     });
-
 };
 
 var getQuestions = function (difficulty, category) {
@@ -60,7 +56,6 @@ var getQuestions = function (difficulty, category) {
 
 var loadQuestion = function (givenQuestion) {
     $("#question span").text( decode( givenQuestion['question'] ));
-    // delete givenQuestion[0];
     correctAnswer = givenQuestion['correct_answer'];
     var allAnswers = [];
     allAnswers.push(correctAnswer);
@@ -76,15 +71,9 @@ var loadQuestion = function (givenQuestion) {
 function shuffleArray(array) {
     var currentIndex = array.length,
         temporaryValue, randomIndex;
-
-    // While there remain elements to shuffleArray...
     while (0 !== currentIndex) {
-
-        // Pick a remaining element...
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-
-        // And swap it with the current element.
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
@@ -203,7 +192,7 @@ var showHistory = function () {
 };
 var getCategoryNameById = function (id) {
     for (var catName in categories){
-        if(categories[catName]==id){
+        if(categories[catName]===id){
             return catName;
         }
     }
@@ -212,7 +201,6 @@ var showContact = function () {
     $('#startScreen').addClass('hidden');
     $('#contactScreen').removeClass('hidden');
 };
-
 
 //indexedDB
 window.indexedDB =
@@ -259,7 +247,7 @@ var retrieveScores = function(){
     }
 };
 
-//FORM & JSON SCHEMA
+//JSON SCHEMA
 var jsonSchema = {
     name: {
         title: "Name validation",

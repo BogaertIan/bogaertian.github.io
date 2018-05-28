@@ -2,6 +2,7 @@ var cacheName = 'my-site-cache-v1';
 var cacheFiles = [
     '/',
     '/index.html',
+    '/assets/js/ajv-min.js',
     '/assets/js/jquery-3.1.1.min.js',
     '/assets/js/script.js',
     '/assets/images/correct.png',
@@ -55,7 +56,6 @@ self.addEventListener('fetch',function (e) {
                                 cache.put(e.request, responseClone);
                                 return response;
                             })
-
                     });
                 })
             .catch(function (err) {
