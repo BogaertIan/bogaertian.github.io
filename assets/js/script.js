@@ -276,7 +276,6 @@ function submitForm(e){
     validateField(jsonSchema.name, $('#name'));
     validateField(jsonSchema.email, $('#email'));
     validateField(jsonSchema.question, $('#formQuestion'));
-    console.log(errorMessages);
     if(formErrors > 0){
         //TO-DO : show errors
         var errorMessage = "<ul>";
