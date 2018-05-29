@@ -8,7 +8,7 @@ var questions = {
     }, hard: {
     }
 };
-var numberOfQuestions = 10;
+var numberOfQuestions = 5;
 var currentQuestionIndex=1;
 var score = 0;
 var scores = [];
@@ -184,7 +184,7 @@ var showHistory = function () {
     for(var i=scores.length>10?9:scores.length-1;i>=0;i--){
         var scoreObject = scores[i];
         var catname = getCategoryNameById(scoreObject.category);
-        $("#scores").append("<div class='score'><p>Score: "+scoreObject.score+"</p><p>Difficulty: "+scoreObject.difficulty+"</p><p>Category: "+ catname +"</p><p>Date: "+scoreObject.date+"</p></div>")
+        $("#scores").append("<div class='score'><p>Score: "+scoreObject.score+"/"+numberOfQuestions+"</p><p>Difficulty: "+scoreObject.difficulty+"</p><p>Category: "+ catname +"</p><p>Date: "+scoreObject.date+"</p></div>")
     }
     $('#startScreen').addClass('hidden');
     $('#endScreen').addClass('hidden');
