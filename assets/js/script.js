@@ -192,7 +192,7 @@ var showHistory = function () {
 };
 var getCategoryNameById = function (id) {
     for (var catName in categories){
-        if(categories[catName]===id){
+        if(categories[catName]==id){
             return catName;
         }
     }
