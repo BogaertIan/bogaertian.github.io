@@ -114,3 +114,8 @@ input[type="submit"]{
     color: white;
     background-color: rgb(98,167,82);
 }
+#contactScreen p {
+	text-align: left;
+    margin: 5%;
+    font-size: 0.8rem;
+}

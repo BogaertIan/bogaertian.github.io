@@ -299,7 +299,11 @@ function validateField(schema, field){
     if(!valid){
         console.log(ajv.errors);
         var labelText = $(field).prev().text();// .parent().find("label").text();
-        errorMessages.push(labelText + " is not valid.");
+        if(field.attr('id') === "email" && ajv.errors[0].keyword === "pattern"){
+            errorMessages.push(labelText + " is not valid, please use something like this: name@example.com");
+        } else {
+            errorMessages.push(labelText + " is not valid.");
+        }
         formErrors++;
     }
 }
