@@ -8,7 +8,7 @@ var questions = {
     }, hard: {
     }
 };
-var numberOfQuestions = 5;
+var numberOfQuestions = 10;
 var currentQuestionIndex=1;
 var score = 0;
 var scores = [];
